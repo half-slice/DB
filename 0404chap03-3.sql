@@ -5,7 +5,6 @@ WHERE name NOT IN(SELECT name
             FROM orders
             WHERE customer.custid = orders.custid);
 
-
 /*ex2-9 주문 금액의 총액과 주문의 평균 금액*/
 SELECT SUM(saleprice), AVG(saleprice)
 FROM orders;
@@ -35,6 +34,3 @@ WHERE customer.custid = orders.custid
 GROUP BY name
 HAVING avg(saleprice) > (SELECT avg(saleprice) 
                         FROM orders);
-
-
-
