@@ -1,20 +1,20 @@
-/*¹ÚÁö¼ºÀÌ ±¸¸ÅÇÑ µµ¼­ÀÇ ÃâÆÇ»ç ¼ö*/
+/*ë°•ì§€ì„±ì´ êµ¬ë§¤í•œ ë„ì„œì˜ ì¶œíŒì‚¬ ìˆ˜*/
 SELECT COUNT(publisher)
 FROM book
 WHERE bookid IN (SELECT bookid
                     FROM orders
                     WHERE custid = (SELECT custid
                                     FROM customer
-                                    WHERE name = '¹ÚÁö¼º'));
+                                    WHERE name = 'ë°•ì§€ì„±'));
 
-/*¹ÚÁö¼ºÀÌ ±¸¸ÅÇÑ µµ¼­ÀÇ ÀÌ¸§, °¡°Ý, Á¤°¡¿Í ÆÇ¸Å°¡°ÝÀÇ Â÷ÀÌ*/
-SELECT bookname, price, price-saleprice AS °¡°ÝÂ÷ÀÌ
+/*ë°•ì§€ì„±ì´ êµ¬ë§¤í•œ ë„ì„œì˜ ì´ë¦„, ê°€ê²©, ì •ê°€ì™€ íŒë§¤ê°€ê²©ì˜ ì°¨ì´*/
+SELECT bookname, price, price-saleprice AS ê°€ê²©ì°¨ì´
 FROM book, orders
 WHERE book.bookid = orders.bookid AND orders.custid = (SELECT custid
                                                 FROM customer
-                                                WHERE name = '¹ÚÁö¼º');
+                                                WHERE name = 'ë°•ì§€ì„±');
 
-/*¹ÚÁö¼ºÀÌ ±¸¸ÅÇÏÁö ¾ÊÀº µµ¼­ÀÇ ÀÌ¸§*/
+/*ë°•ì§€ì„±ì´ êµ¬ë§¤í•˜ì§€ ì•Šì€ ë„ì„œì˜ ì´ë¦„*/
 SELECT bookname
 FROM book
 MINUS
@@ -24,9 +24,9 @@ WHERE bookid IN (SELECT bookid
                 FROM orders
                 WHERE custid = (SELECT custid
                                 FROM customer
-                                WHERE name LIKE '¹ÚÁö¼º'));
+                                WHERE name LIKE 'ë°•ì§€ì„±'));
 
-/*ÁÖ¹®ÇÏÁö ¾ÊÀº °í°´ÀÇ ÀÌ¸§(ºÎ¼ÓÁúÀÇ »ç¿ë)*/
+/*ì£¼ë¬¸í•˜ì§€ ì•Šì€ ê³ ê°ì˜ ì´ë¦„(ë¶€ì†ì§ˆì˜ ì‚¬ìš©)*/
 SELECT name
 FROM customer
 MINUS
@@ -35,24 +35,24 @@ FROM customer
 WHERE custid IN (SELECT custid
                 FROM orders);
 
-/*ÁÖ¹® ±Ý¾×ÀÇ ÃÑ¾×°ú ÁÖ¹®ÀÇ Æò±Õ ±Ý¾×*/
+/*ì£¼ë¬¸ ê¸ˆì•¡ì˜ ì´ì•¡ê³¼ ì£¼ë¬¸ì˜ í‰ê·  ê¸ˆì•¡*/
 SELECT SUM(saleprice), AVG(saleprice)
 FROM orders;
 
-/*°í°´ÀÇ ÀÌ¸§°ú °í°´º° ±¸¸Å¾×*/
+/*ê³ ê°ì˜ ì´ë¦„ê³¼ ê³ ê°ë³„ êµ¬ë§¤ì•¡*/
 SELECT name, SUM(saleprice)
 FROM customer, orders
 WHERE customer.custid = orders.custid(+)
 GROUP BY name;
 
-/*°í°´ÀÇ ÀÌ¸§°ú °í°´ÀÌ ±¸¸ÅÇÑ µµ¼­ ¸ñ·Ï*/
+/*ê³ ê°ì˜ ì´ë¦„ê³¼ ê³ ê°ì´ êµ¬ë§¤í•œ ë„ì„œ ëª©ë¡*/
 SELECT name, bookname
 FROM customer LEFT OUTER JOIN book
                 ON book.bookid IN (SELECT bookid
                                 FROM orders
                                 WHERE orders.custid = customer.custid);
 
-/*µµ¼­ÀÇ °¡°Ý(Book Å×ÀÌºí)°ú ÆÇ¸Å°¡°Ý(Orders Å×ÀÌºí)ÀÇ Â÷ÀÌ°¡ °¡Àå ¸¹Àº ÁÖ¹®*/
+/*ë„ì„œì˜ ê°€ê²©(Book í…Œì´ë¸”)ê³¼ íŒë§¤ê°€ê²©(Orders í…Œì´ë¸”)ì˜ ì°¨ì´ê°€ ê°€ìž¥ ë§Žì€ ì£¼ë¬¸*/
 SELECT *
 FROM orders
 WHERE orders.orderid = (SELECT orders.orderid
@@ -61,7 +61,7 @@ WHERE orders.orderid = (SELECT orders.orderid
                                                                                             FROM book, orders
                                                                                             WHERE orders.bookid = book.bookid));
 
-/*µµ¼­ÀÇ ÆÇ¸Å¾× Æò±Õº¸´Ù ÀÚ½ÅÀÇ ±¸¸Å¾× Æò±ÕÀÌ ´õ ³ôÀº °í°´ÀÇ ÀÌ¸§*/
+/*ë„ì„œì˜ íŒë§¤ì•¡ í‰ê· ë³´ë‹¤ ìžì‹ ì˜ êµ¬ë§¤ì•¡ í‰ê· ì´ ë” ë†’ì€ ê³ ê°ì˜ ì´ë¦„*/
 SELECT name
 FROM customer
 WHERE customer.custid IN (SELECT orders.custid
@@ -70,3 +70,62 @@ WHERE customer.custid IN (SELECT orders.custid
                         HAVING SUM(orders.saleprice) > (SELECT AVG(saleprice)
                                                         FROM orders))
 GROUP BY name;
+
+                                  
+/*ë°•ì§€ì„±ì´ êµ¬ë§¤í•œ ë„ì„œì˜ ì¶œíŒì‚¬ ìˆ˜-2*/
+SELECT COUNT(DISTINCT publisher)
+FROM customer, orders, book
+WHERE customer.custid = orders.custid AND orders.bookid=book.bookid AND customer.name like 'ë°•ì§€ì„±';
+
+/*ë°•ì§€ì„±ì´ êµ¬ë§¤í•œ ë„ì„œì˜ ì´ë¦„, ê°€ê²©, ì •ê°€ì™€ íŒë§¤ê°€ê²©ì˜ ì°¨ì´-2 book.price = ì •ê°€ / orders.saleprice = íŒë§¤ê°€*/
+SELECT bookname, price, price-saleprice
+FROM customer, orders, book
+WHERE customer.custid=orders.custid AND orders.bookid=book.bookid AND customer.name LIKE 'ë°•ì§€ì„±';
+
+/*ë°•ì§€ì„±ì´ êµ¬ë§¤í•˜ì§€ ì•Šì€ ë„ì„œì˜ ì´ë¦„-2 / ìƒê´€ì§ˆì˜ = ìƒìœ„ì§ˆì˜ì—ì„œ bookí…Œì´ë¸”ì„ ì–¸ê¸‰í–ˆìœ¼ë¯€ë¡œ í•˜ìœ„ì§ˆì˜ì—ì„œ bookì„ ì–¸ê¸‰í•  í•„ìš”ëŠ” ì—†ë‹¤*/
+SELECT bookname
+FROM book
+WHERE NOT EXISTS (SELECT bookname
+                    FROM customer, orders
+                    WHERE customer.custid = orders.custid AND orders.bookid = book.bookid AND customer.name like 'ë°•ì§€ì„±');
+                    
+
+/*ì£¼ë¬¸í•˜ì§€ ì•Šì€ ê³ ê°ì˜ ì´ë¦„(ë¶€ì†ì§ˆì˜ ì‚¬ìš©)-2*/
+SELECT name
+FROM customer
+WHERE name NOT IN(SELECT name
+            FROM orders
+            WHERE customer.custid = orders.custid);
+            
+
+
+/*ì£¼ë¬¸ ê¸ˆì•¡ì˜ ì´ì•¡ê³¼ ì£¼ë¬¸ì˜ í‰ê·  ê¸ˆì•¡*/
+SELECT SUM(saleprice), AVG(saleprice)
+FROM orders;
+
+/*ê³ ê°ì˜ ì´ë¦„ê³¼ ê³ ê°ë³„ êµ¬ë§¤ì•¡*/
+SELECT name, SUM(saleprice)
+FROM customer, orders
+WHERE customer.custid = orders.custid(+)
+GROUP BY name;
+
+
+/*ê³ ê°ì˜ ì´ë¦„ê³¼ ê³ ê°ì´ êµ¬ë§¤í•œ ë„ì„œ ëª©ë¡-2*/
+SELECT name, bookname
+FROM customer ,book, orders
+WHERE customer.custid = orders.custid AND book.bookid = orders.bookid;
+
+/*ë„ì„œì˜ ê°€ê²©(Book í…Œì´ë¸”)ê³¼ íŒë§¤ê°€ê²©(Orders í…Œì´ë¸”)ì˜ ì°¨ì´ê°€ ê°€ìž¥ ë§Žì€ ì£¼ë¬¸-2*/
+SELECT *
+FROM book, orders
+WHERE book.bookid = orders.bookid AND price-saleprice = (SELECT MAX(book.price-saleprice)
+                                                        FROM book, orders
+                                                        WHERE book.bookid = orders.bookid);
+
+/*ë„ì„œì˜ íŒë§¤ì•¡ í‰ê· ë³´ë‹¤ ìžì‹ ì˜ êµ¬ë§¤ì•¡ í‰ê· ì´ ë” ë†’ì€ ê³ ê°ì˜ ì´ë¦„-2*/
+SELECT name, avg(saleprice)
+FROM customer, orders
+WHERE customer.custid = orders.custid
+GROUP BY name
+HAVING avg(saleprice) > (SELECT avg(saleprice) 
+                        FROM orders);
