@@ -1,37 +1,37 @@
-/*¿ÞÂÊ ¿ÜºÎ Á¶ÀÎ*/
+/*ì™¼ìª½ ì™¸ë¶€ ì¡°ì¸*/
 SELECT name,saleprice
 FROM customer LEFT OUTER JOIN orders ON customer.custid = orders.custid;
 
-/*¿ÞÂÊ ¿ÜºÎ Á¶ÀÎ(+)*/
+/*ì™¼ìª½ ì™¸ë¶€ ì¡°ì¸(+)*/
 SELECT customer.name, saleprice
 FROM customer, orders
 WHERE customer.custid = orders.custid(+);
 
-/*°¡Àå ºñ½Ñ µµ¼­ÀÇ °¡°Ý Ç¥½Ã*/
+/*ê°€ìž¥ ë¹„ì‹¼ ë„ì„œì˜ ê°€ê²© í‘œì‹œ*/
 SELECT MAX(price)
 FROM book;
 
-/*°¡Àå ºñ½Ñ µµ¼­ÀÇ ÀÌ¸§*/
+/*ê°€ìž¥ ë¹„ì‹¼ ë„ì„œì˜ ì´ë¦„*/
 SELECT bookname
 FROM book
 WHERE price=35000;
 
-/*°¡Àå ºñ½Ñ µµ¼­ÀÇ ÀÌ¸§*/
+/*ê°€ìž¥ ë¹„ì‹¼ ë„ì„œì˜ ì´ë¦„*/
 SELECT bookname
 FROM book
 WHERE price=(SELECT MAX(price)
             FROM book);
             
-/*µµ¼­¸¦ ÁÖ¹®ÇÑÀûÀÌ ÀÖ´Â °í°´ ¾ÆÀÌµð Ã£±â*/
+/*ë„ì„œë¥¼ ì£¼ë¬¸í•œì ì´ ìžˆëŠ” ê³ ê° ì•„ì´ë”” ì°¾ê¸°*/
 SELECT custid
 FROM orders;
 
-/*°í°´ ¾ÆÀÌµð¿¡ ÇØ´çÇÏ´Â °í°´ ÀÌ¸§ Ã£±â*/
+/*ê³ ê° ì•„ì´ë””ì— í•´ë‹¹í•˜ëŠ” ê³ ê° ì´ë¦„ ì°¾ê¸°*/
 SELECT name
 FROM customer
 WHERE customer.custid IN (1,2,3,4);
             
-/*µµ¼­¸¦ ÁÖ¹®ÇÑ ÀûÀÌ ÀÖ´Â °í°´ÀÇ ÀÌ¸§*/
+/*ë„ì„œë¥¼ ì£¼ë¬¸í•œ ì ì´ ìžˆëŠ” ê³ ê°ì˜ ì´ë¦„*/
 SELECT name
 FROM customer
 WHERE custid IN (SELECT custid
