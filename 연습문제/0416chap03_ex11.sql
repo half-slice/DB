@@ -12,7 +12,7 @@ alter table theater drop primary key;
 
 rollback;
 
-/*ex11 Å×ÀÌºí »ı¼º ±ØÀå:theater »ó¿µ°ü:screen ¿¹¾à:reserve °í°´:moveicustomer */
+/*ex11 í…Œì´ë¸” ìƒì„± ê·¹ì¥:theater ìƒì˜ê´€:screen ì˜ˆì•½:reserve ê³ ê°:moveicustomer */
 create table theater(
 theaterid number,
 theatername varchar2(10),
@@ -20,7 +20,7 @@ location varchar2(10),
 primary key(theaterid)
 );
 
-/*»ó¿µ°ü*/
+/*ìƒì˜ê´€*/
 create table screen(
 theaterid number,
 screenid number check(1<=screenid and screenid<=10),
@@ -30,7 +30,7 @@ seatcount number,
 primary key(screenid, theaterid)
 );
 
-/*°í°´*/
+/*ê³ ê°*/
 create table moviecustomer(
 custid number,
 name varchar2(10),
@@ -38,7 +38,7 @@ address varchar2(10),
 primary key(custid)
 );
 
-/*¿¹¾à*/
+/*ì˜ˆì•½*/
 create table reserve(
 theaterid number,
 screenid number,
@@ -48,102 +48,102 @@ reservedate date,
 primary key(theaterid, screenid, custid)
 );
 
-/*ex11 Æ©ÇÃ »ğÀÔ*/
-insert into theater values(1, '·Ôµ¥', 'Àá½Ç');
-insert into theater values(2, '¸Ş°¡', '°­³²');
-insert into theater values(3, '´ëÇÑ', 'Àá½Ç');
+/*ex11 íŠœí”Œ ì‚½ì…*/
+insert into theater values(1, 'ë¡¯ë°', 'ì ì‹¤');
+insert into theater values(2, 'ë©”ê°€', 'ê°•ë‚¨');
+insert into theater values(3, 'ëŒ€í•œ', 'ì ì‹¤');
 
-insert into screen values(1, 1, '¾î·Á¿î ¿µÈ­', 15000, 48);
-insert into screen values(3, 1, '¸ÚÁø ¿µÈ­', 7500, 120);
-insert into screen values(3, 2, 'Àç¹Õ´Â ¿µÈ­', 8000, 110);
+insert into screen values(1, 1, 'ì–´ë ¤ìš´ ì˜í™”', 15000, 48);
+insert into screen values(3, 1, 'ë©‹ì§„ ì˜í™”', 7500, 120);
+insert into screen values(3, 2, 'ì¬ë°ŒëŠ” ì˜í™”', 8000, 110);
 
-insert into moviecustomer values(3, 'È«±æµ¿', '°­³²');
-insert into moviecustomer values(4, '±èÃ¶¼ö', 'Àá½Ç');
-insert into moviecustomer values(9, '¹Ú¿µÈñ', '°­³²');
+insert into moviecustomer values(3, 'í™ê¸¸ë™', 'ê°•ë‚¨');
+insert into moviecustomer values(4, 'ê¹€ì² ìˆ˜', 'ì ì‹¤');
+insert into moviecustomer values(9, 'ë°•ì˜í¬', 'ê°•ë‚¨');
 
 insert into reserve values(3, 2, 3, 15, '2020-09-01');
 insert into reserve values(3, 1, 4, 16, '2020-09-01');
 insert into reserve values(1, 1, 9, 48, '2020-09-01');
 
-/*ex11-1 ´Ü¼øÁúÀÇ*/
-/*¸ğµç ±ØÀåÀÇ ÀÌ¸§°ú À§Ä¡¸¦ º¸ÀÌ½Ã¿À*/
+/*ex11-1 ë‹¨ìˆœì§ˆì˜*/
+/*ëª¨ë“  ê·¹ì¥ì˜ ì´ë¦„ê³¼ ìœ„ì¹˜ë¥¼ ë³´ì´ì‹œì˜¤*/
 select theatername, location 
 from theater;
 
-/*Àá½Ç¿¡ ÀÖ´Â ±ØÀåÀ» º¸ÀÌ½Ã¿À*/
+/*ì ì‹¤ì— ìˆëŠ” ê·¹ì¥ì„ ë³´ì´ì‹œì˜¤*/
 select *
 from theater
-where location='Àá½Ç';
+where location='ì ì‹¤';
 
-/*Àá½Ç¿¡ »ç´Â °í°´ÀÇ ÀÌ¸§À» ¿À¸§Â÷¼øÀ¸·Î º¸ÀÌ½Ã¿À*/
+/*ì ì‹¤ì— ì‚¬ëŠ” ê³ ê°ì˜ ì´ë¦„ì„ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ë³´ì´ì‹œì˜¤*/
 select name
 from moviecustomer
-where address='Àá½Ç'
+where address='ì ì‹¤'
 order by name;
 
-/*°¡°İÀÌ 8000¿ø ÀÌÇÏÀÎ ¿µÈ­ÀÇ ±ØÀå¹øÈ£, »ó¿µ°ü¹øÈ£, ¿µÈ­Á¦¸ñÀ» º¸ÀÌ½Ã¿À*/
+/*ê°€ê²©ì´ 8000ì› ì´í•˜ì¸ ì˜í™”ì˜ ê·¹ì¥ë²ˆí˜¸, ìƒì˜ê´€ë²ˆí˜¸, ì˜í™”ì œëª©ì„ ë³´ì´ì‹œì˜¤*/
 select theaterid, screenid, moviename
 from screen
 where price<=8000;
 
-/*±ØÀåÀÇ À§Ä¡¿Í °í°´ÀÇ ÁÖ¼Ò°¡ °°Àº °í°´ÀÇ º¸ÀÌ½Ã¿À*/
+/*ê·¹ì¥ì˜ ìœ„ì¹˜ì™€ ê³ ê°ì˜ ì£¼ì†Œê°€ ê°™ì€ ê³ ê°ì˜ ë³´ì´ì‹œì˜¤*/
 select distinct name
 from moviecustomer, theater
 where theater.location = moviecustomer.address;
 
-/*ex11-2 Áı°èÁúÀÇ*/
-/*±ØÀåÀÇ ¼ö´Â ¸î °³ÀÎ°¡*/
+/*ex11-2 ì§‘ê³„ì§ˆì˜*/
+/*ê·¹ì¥ì˜ ìˆ˜ëŠ” ëª‡ ê°œì¸ê°€*/
 select count(*)
 from theater;
 
-/*»ó¿µµÇ´Â ¿µÈ­ÀÇ Æò±Õ °¡°İÀº ¾ó¸¶ÀÎ°¡*/
+/*ìƒì˜ë˜ëŠ” ì˜í™”ì˜ í‰ê·  ê°€ê²©ì€ ì–¼ë§ˆì¸ê°€*/
 select avg(price)
 from screen;
 
-/*2020³â 9¿ù 1ÀÏ¿¡ ¿µÈ­¸¦ °ü¶÷ÇÑ °í°´ÀÇ ¼ö´Â ¾ó¸¶ÀÎ°¡*/
+/*2020ë…„ 9ì›” 1ì¼ì— ì˜í™”ë¥¼ ê´€ëŒí•œ ê³ ê°ì˜ ìˆ˜ëŠ” ì–¼ë§ˆì¸ê°€*/
 select count(*)
 from reserve
 where reservedate in ('2020-09-01');
 
-/*ex11-3 ºÎ¼ÓÁúÀÇ¿Í Á¶ÀÎ*/
-/*´ëÇÑ±ØÀå¿¡¼­ »ó¿µµÈ ¿µÈ­Á¦¸ñÀ» º¸ÀÌ½Ã¿À*/
+/*ex11-3 ë¶€ì†ì§ˆì˜ì™€ ì¡°ì¸*/
+/*ëŒ€í•œê·¹ì¥ì—ì„œ ìƒì˜ëœ ì˜í™”ì œëª©ì„ ë³´ì´ì‹œì˜¤*/
 select moviename
 from theater, screen
-where theater.theaterid = screen.theaterid and theater.theatername like '´ëÇÑ';
+where theater.theaterid = screen.theaterid and theater.theatername like 'ëŒ€í•œ';
 
-/*´ëÇÑ±ØÀå¿¡¼­ ¿µÈ­¸¦ º» °í°´ÀÇ ÀÌ¸§À» º¸ÀÌ½Ã¿À*/
+/*ëŒ€í•œê·¹ì¥ì—ì„œ ì˜í™”ë¥¼ ë³¸ ê³ ê°ì˜ ì´ë¦„ì„ ë³´ì´ì‹œì˜¤*/
 select name
 from moviecustomer, reserve
 where reserve.custid = moviecustomer.custid and  reserve.theaterid in (select theaterid
                                                                         from theater
-                                                                        where theatername like '´ëÇÑ');
+                                                                        where theatername like 'ëŒ€í•œ');
 
-/*´ëÇÑ±ØÀå¿¡¼­ ÀüÃ¼ ¼öÀÔÀ» º¸ÀÌ½Ã¿À*/
+/*ëŒ€í•œê·¹ì¥ì—ì„œ ì „ì²´ ìˆ˜ì…ì„ ë³´ì´ì‹œì˜¤*/
 select sum(price)
 from screen, theater, reserve
-where theater.theatername like '´ëÇÑ' and reserve.theaterid = screen.theaterid; 
+where theater.theatername like 'ëŒ€í•œ' and reserve.theaterid = screen.theaterid; 
 
-/*ex11-4 ºÎ¼ÓÁúÀÇ¿Í Á¶ÀÎ*/
-/*±ØÀåº° »ó¿µ°ü ¼ö¸¦ º¸ÀÌ½Ã¿À*/
+/*ex11-4 ë¶€ì†ì§ˆì˜ì™€ ì¡°ì¸*/
+/*ê·¹ì¥ë³„ ìƒì˜ê´€ ìˆ˜ë¥¼ ë³´ì´ì‹œì˜¤*/
 select theatername, count(screen.theaterid)
 from theater, screen
 where theater.theaterid = screen.theaterid(+)
 group by theatername;
 
-/*Àá½Ç¿¡ ÀÖ´Â ±ØÀåÀÇ »ó¿µ°üÀ» º¸ÀÌ½Ã¿À*/
+/*ì ì‹¤ì— ìˆëŠ” ê·¹ì¥ì˜ ìƒì˜ê´€ì„ ë³´ì´ì‹œì˜¤*/
 select *
 from screen
 where screen.theaterid in (select theaterid
                             from theater
-                            where location='Àá½Ç');
+                            where location='ì ì‹¤');
 
-/*2020³â 9¿ù 1ÀÏÀÇ ±ØÀåº° Æò±Õ °ü¶÷ °í°´ ¼ö¸¦ º¸ÀÌ½Ã¿À*/
+/*2020ë…„ 9ì›” 1ì¼ì˜ ê·¹ì¥ë³„ í‰ê·  ê´€ëŒ ê³ ê° ìˆ˜ë¥¼ ë³´ì´ì‹œì˜¤*/
 select theatername, count(reserve.theaterid)
 from theater left outer join reserve
 on theater.theaterid = reserve.theaterid and reserve.reservedate in ('2020-09-01')
 group by theatername;
 
-/*2020³â 9¿ù 1ÀÏ¿¡ °¡Àå ¸¹Àº °í°´ÀÌ °ü¶÷ÇÑ ¿µÈ­¸¦ º¸ÀÌ½Ã¿À*/
+/*2020ë…„ 9ì›” 1ì¼ì— ê°€ì¥ ë§ì€ ê³ ê°ì´ ê´€ëŒí•œ ì˜í™”ë¥¼ ë³´ì´ì‹œì˜¤*/
 select moviename
 from (select moviename, count(reserve.custid) as countmax
         from screen, reserve, moviecustomer
