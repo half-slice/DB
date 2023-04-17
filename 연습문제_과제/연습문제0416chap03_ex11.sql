@@ -1,17 +1,3 @@
-drop table theater;
-drop table screen;
-drop table moviecustomer;
-drop table reserve; 
-
-select * from theater;
-select * from screen;
-select * from moviecustomer;
-select * from reserve;
-
-alter table theater drop primary key;
-
-rollback;
-
 /*ex11 테이블 생성 극장:theater 상영관:screen 예약:reserve 고객:moveicustomer */
 create table theater(
 theaterid number,
