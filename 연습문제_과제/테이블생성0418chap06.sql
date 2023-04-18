@@ -1,11 +1,11 @@
-/*department(ºÎ¼­) table »ı¼º*/
+/*department(ë¶€ì„œ) table ìƒì„±*/
 create table department(
     deptno number not null primary key,
     deptname varchar2(20),
     manager varchar2(20)
 );
 
-/*employee(Á÷¿ø) table  »ı¼º*/
+/*employee(ì§ì›) table  ìƒì„±*/
 create table employee(
     empno number not null primary key,
     name varchar2(20),
@@ -17,7 +17,7 @@ create table employee(
     foreign key(deptno) references department(deptno) on delete cascade
 );
 
-/*project(ÇÁ·ÎÁ§Æ®) table »ı¼º*/ 
+/*project(í”„ë¡œì íŠ¸) table ìƒì„±*/ 
 create table project(
     projno number not null primary key,
     projname varchar2(20),
@@ -25,7 +25,7 @@ create table project(
     foreign key(deptno) references department(deptno) on delete cascade
 );
 
-/*works(±Ù¹«) table »ı¼º*/
+/*works(ê·¼ë¬´) table ìƒì„±*/
 create table works(
     projno number not null,
     empno number not null, 
@@ -36,18 +36,18 @@ create table works(
 );
 
 
-/*µ¥ÀÌÅÍ »ğÀÔ*/
-insert into department values(1,'IT', '°í³²¼ø');
-insert into department values(2,'Marketing', 'È«±æµ¿');
+/*ë°ì´í„° ì‚½ì…*/
+insert into department values(1,'IT', 'ê³ ë‚¨ìˆœ');
+insert into department values(2,'Marketing', 'í™ê¸¸ë™');
 
-insert into employee values(1, '±è´ö¼º', 01012341232, '¼­¿ï','¿©','Programmer',1);
-insert into employee values(2, 'ÀÌ¼­¿ï', 01012323122, '¼­¿ï','³²','Programmer',1);
-insert into employee values(3, '¹Ú¿¬¼¼', 01076851231, '´ëÀü','¿©','Salesperson',2);
-insert into employee values(4, 'È«±æµ¿', 01012341546, '¼­¿ï','³²','Manager',2);
-insert into employee values(5, '°í³²¼ø', 01012311112, '¼­¿ï','¿©','Manager',1);
+insert into employee values(1, 'ê¹€ë•ì„±', 01012341232, 'ì„œìš¸','ì—¬','Programmer',1);
+insert into employee values(2, 'ì´ì„œìš¸', 01012323122, 'ì„œìš¸','ë‚¨','Programmer',1);
+insert into employee values(3, 'ë°•ì—°ì„¸', 01076851231, 'ëŒ€ì „','ì—¬','Salesperson',2);
+insert into employee values(4, 'í™ê¸¸ë™', 01012341546, 'ì„œìš¸','ë‚¨','Manager',2);
+insert into employee values(5, 'ê³ ë‚¨ìˆœ', 01012311112, 'ì„œìš¸','ì—¬','Manager',1);
 
-insert into project values(1,'µ¥ÀÌÅÍº£ÀÌ½º',1);
-insert into project values(2,'½ÃÀåÁ¶»ç',2);
+insert into project values(1,'ë°ì´í„°ë² ì´ìŠ¤',1);
+insert into project values(2,'ì‹œì¥ì¡°ì‚¬',2);
 
 insert into works values(1, 1, 3);
 insert into works values(1, 2, 1);
